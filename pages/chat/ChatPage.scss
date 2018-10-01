@@ -1,0 +1,51 @@
+@import "../../static/scss/common";
+
+.ChatPage {
+  position: relative;
+  height: 100vh;
+  header {
+    background-color: #5c5d5d;
+    height: 1rems;
+    span{
+      color: #ffffff;
+      font-size: 0.3rem;
+      vertical-align: 0.25rem;
+      padding-left: 0.3rem;
+    }
+  }
+  .usr-head {
+    text-align: center;
+    img {
+      width: 0.68rem;
+      height: 0.68rem;
+      border-radius: 0.03rem;
+      display: inline-block;
+    }
+    p {
+      font-size: 0.24rem;
+    }
+  }
+  .bottom-input {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    .tools {
+      color: #85d1ff;
+      border-bottom: solid 1px #eeeeee;
+      border-top: solid 1px #eeeeee;
+      line-height: 1rem;
+      .iconfont {
+        padding: 0 0.3rem;
+        font-size: 0.5rem;
+        font-weight: 600;
+      }
+    }
+    input {
+      height: 1rem;
+      width: 100%;
+      vertical-align: top;
+      padding-left: 0.3rem;
+    }
+  }
+
+}

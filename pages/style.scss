@@ -1,6 +1,7 @@
 @import "../static/scss/common";
 
 .main-page {
+  background-color: #efefef;
   margin-bottom: 1rem;
   .pen-start {
     position: fixed;
@@ -8,7 +9,7 @@
     height: 1.06rem;
     border-radius: 50%;
     background-color: #529ecc;
-    bottom: 2.2rem;
+    bottom: 2rem;
     right: 0.3rem;
     box-shadow: 2px 2px 5px #cccccc;
     .icon-pen {
@@ -21,60 +22,141 @@
       font-size: .55rem;
     }
   }
-
-  .dynamic {
-    header {
-      background-color: #ffffff;
-      height: 1rem;
-      padding: 0 0.3rem;
-      line-height: 1rem;
-      border-bottom: solid 0.02rem #cccccc;
-      .dy-pic {
-        width: 0.66rem;
-        height: 0.66rem;
-        border-radius: 0.05rem;
-        float: left;
-        margin: 0.16rem 0;
-      }
-      .author { 
-        float: left;
-        color: #444444;
-        font-size: 0.32rem;
-        margin-left: 0.2rem;
-      }
-      .follow {
-        float: left;
-        color: #5e9dcb;
-        margin-left: 0.3rem;
-        font-size: 0.32rem;
-        &:hover {
-          color: #717e8f;
+  .modle-choose {
+    background-color: #36465d;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    animation:wrap .5s;
+    .wrap {
+      width: 0;
+      height: 0;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      p {
+        position: absolute;
+        width: 1.5rem;
+        height: 1.5rem;
+        border-radius: 50%;
+        background-color: #ffffff;
+        line-height: 1.5rem;
+        text-align: center;
+        transform: scale(0,0);
+        opacity: 0;
+        top: -0.75rem;
+        left: -0.75rem;
+        font-weight: 600;
+        font-size: 0.4rem;
+        &.pic {
+          animation: pic .5s;
+          animation-delay: .4s;
+          animation-fill-mode: forwards;
+          background-color: #f7dd38;
+        }
+        &.gif {
+          animation: gif .5s;
+          animation-delay: .45s;
+          animation-fill-mode: forwards;
+          background-color: #56bc8a;
+        }
+        &.words {
+          animation: words .5s;
+          animation-delay: .5s;
+          animation-fill-mode: forwards;
+          background-color: #4aa8d8;
+        }
+        &.voice {
+          animation: voice .5s;
+          animation-delay: .55s;
+          animation-fill-mode: forwards;
+          background-color: #ac7ebe;
         }
       }
-      .icon-close {
-        float: right;
-      }
     }
-    .content {
-      .dy-img {
-        width: 100%;
-        
-      }
+    .icon-close {
+      font-size: 0.5rem;
+      color: #ffffff;
+      position: absolute;
+      bottom: 2rem;
+      right: 1rem;
+      animation: wrap 1s;
     }
-    .markdown {
-      font-family: 'Arial';
-      a {
-        text-decoration: none;
-        color: blue;
-      }
-      a:hover {
-        opacity: 0.6;
-      }
-      h3 {
-        margin: 0;
-        padding: 0;
-        text-transform: uppercase;
-      }
-    }
+  }
+}
+
+@keyframes wrap
+{
+  from {
+    transform: scale(0,0);
+    transform-origin:100% 100%;
+    opacity: 0;
+  }
+  to {
+    transform: scale(1,1);
+    opacity: 1;
+  }
+}
+@keyframes pic
+{
+  from {
+    transform: scale(0,0);
+    opacity: 0;
+    top: -0.75rem;
+    left: -0.75rem;
+  }
+  to {
+    transform: scale(1,1);
+    opacity: 1;
+    top: -3rem;
+    left: -0.75rem;
+    animation-fill-mode: forwards;
+  }
+}
+@keyframes gif
+{
+  from {
+    transform: scale(0,0);
+    opacity: 0;
+    top: -0.75rem;
+    left: -0.75rem;
+  }
+  to {
+    transform: scale(1,1);
+    opacity: 1;
+    top: -0.75rem;
+    left: 1.5rem;
+  }
+}
+@keyframes words
+{
+  from {
+    transform: scale(0,0);
+    opacity: 0;
+    top: -0.75rem;
+    left: -0.75rem;
+  }
+  to {
+    transform: scale(1,1);
+    opacity: 1;
+    top: 1.5rem;
+    left: -0.75rem;
+  }
+}
+@keyframes voice
+{
+  from {
+    transform: scale(0,0);
+    opacity: 0;
+    top: -0.75rem;
+    left: -0.75rem;
+  }
+  to {
+    transform: scale(1,1);
+    opacity: 1;
+    top: -0.75rem;
+    left: -3rem;
   }
 }

@@ -5,11 +5,13 @@ const layoutStyle = {
   
 }
 
-const Layout = (props) => (
+const Layout = (props) => {
+  const {index}=props;
+  return(
   <div style={layoutStyle}>
-    <Header />
+    <Header index={index}/>
     {props.children}
   </div>
-)
+)}
 
 export default Layout

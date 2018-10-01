@@ -9,6 +9,17 @@ p {
   word-break: normal; 
   word-break: break-all;
 }
+.clearfix:before,
+.clearfix:after {
+    display: table;
+    content: " ";
+}
+.clearfix:after {
+    clear: both;
+}
+.clearfix{
+    *zoom: 1;//兼容ie67
+}
 * {
   box-sizing: border-box;
 }
@@ -19,7 +30,8 @@ body {
 body, html {
   height: 100%;
   width: 100%;
-  font-size: 13.3333333333333vw // 100px
+  font-size: 13.3333333333333vw; // 100px
+  line-height: 1;
 }
 
 body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, dl, dd, ul, ol, li, pre, fieldset, button, input, textarea, th, td {

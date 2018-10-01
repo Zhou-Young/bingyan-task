@@ -1,0 +1,39 @@
+@import "../../static/scss/common";
+
+.Search {
+  background-color: #36465d;
+  height: 100vh;
+  .search-box {
+    background-color: #ffffff;
+    margin: 3%;
+    width: 94%;
+    height: 0.8rem;
+    padding-left: 0.3rem;
+    border: solid 1px #ffffff;
+    vertical-align: top;
+  }
+  .tags {
+    width: 100vw;
+    padding-left: 0.3rem;
+    overflow: scroll;
+    color: #999999;
+    margin-top: 0.3rem;
+    .tags-wrap {
+      white-space: nowrap;
+      height: 1rem;
+      p {
+        display: inline-block;
+        height: 0.6rem;
+        border-radius: 0.3rem; 
+        background-color: #687486;
+        padding: 8px 12px;
+        margin-right: 0.3rem;
+        color: #ffffff;
+        vertical-align: middle;
+        &.add {
+          color: #36465d;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,69 @@
+@import "../../static/scss/common";
+
+.Edit {
+  position: relative;
+  height: 100vh;
+  header {
+    background-color: #5c5d5d;
+    height: 1rems;
+    span{
+      color: #ffffff;
+      font-size: 0.3rem;
+      vertical-align: 0.25rem;
+      padding-left: 0.3rem;
+    }
+  }
+  .usr-head {
+    border-bottom: solid 1px #eeeeee;
+    background-color: #ffffff;
+    height: 1rem;
+    padding: 0 0.3rem;
+    line-height: 1rem;
+    margin-bottom: 0.3rem;
+    img {
+      width: 0.66rem;
+      height: 0.66rem;
+      border-radius: 0.05rem;
+      float: left;
+      margin: 0.16rem 0;
+    }
+    p { 
+      float: left;
+      color: #444444;
+      font-size: 0.32rem;
+      margin-left: 0.2rem;
+    }
+  }
+  .edit-wrap {
+    .title {
+      height: 1rem;
+      width: 100%;
+      vertical-align: top;
+      padding-left: 0.3rem;
+      font-size: 0.5rem;
+      font-weight: 500;
+      color: #444444
+    }
+    .contents {
+      height: calc(100vh - 3.5rem);
+      width: 100%;
+      vertical-align: top;
+      padding: 0.3rem;
+      color: #666666;
+    }
+    .tools {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      color: #85d1ff;
+      border-bottom: solid 1px #eeeeee;
+      border-top: solid 1px #eeeeee;
+      line-height: 1rem;
+      .iconfont {
+        padding: 0 0.3rem;
+        font-size: 0.5rem;
+        font-weight: 600;
+      }
+    }
+  }
+}

@@ -13,5 +13,8 @@
         line-height: 1rem;
         font-size: .5rem;
         color: #717e8f;
+        &.active {
+            color: #ffffff;
+        }
     }
 }
