@@ -1,12 +1,15 @@
 import React from 'react'
 import Layout from '../../components/MyLayout.js'
 import Link from 'next/link'
+import {user_info} from '../data'
 
 import "./Chat.scss"
 
 export default class extends React.Component {
 
   render() {
+    // const {user_info}=this.props;
+    console.log(user_info);
     return (
       <div className="Chat">
         <Layout index="2">
@@ -17,15 +20,24 @@ export default class extends React.Component {
             <p>zhouY</p>
             <p>chat</p>
           </header>
-          <Link href={`/chat/ChatPage?type=disc`}>
-            <div className="chat-item">
-              <img src={default_img}></img>
-              <div className="item-right">
-                <p className="name">name</p>
-                <p className="disc">dics</p>
-              </div>
-            </div>
-          </Link>
+          {/* {
+            user_info.map(v => {
+              return(
+                <Link href={`/chat/ChatPage?type=desc`}>
+                  <div className="chat-item">
+                    <img src={default_img}></img>
+                    <div className="item-right">
+                      <p className="name">{v.name}</p>
+                      <p className="disc">{v.decs}</p>
+                    </div>
+                  </div>
+                </Link>
+              )
+              
+            })
+          } */}
+          
+          
         </Layout>
       </div>
       

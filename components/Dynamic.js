@@ -8,7 +8,7 @@ function deleteContent() {
 
 
 const Dynamic = (props) => {
-  const {type="others",content} = props;
+  const {type="others",dynamic} = props;
   const default_img = "/static/images/default-img.png";
   return (
     <div className="dynamic">
@@ -16,16 +16,16 @@ const Dynamic = (props) => {
       type!="me" &&
       <header>
         <img src={default_img} alt="default image" className="dy-pic"></img>
-        <span className="author">作者</span>
+        <span className="author">{dynamic.author}</span>
         <span className="follow">follow</span>
         <i onClick={deleteContent} className="iconfont icon-close"></i>
       </header>
     }
       <div className="content">
-        <img className="dy-img" src={default_img}></img>
-        <h3 className="dy-title">这是标题</h3>
+        <img className="dy-img" src={dynamic.img || default_img}></img>
+        <h3 className="dy-title">{dynamic.title}</h3>
         <p className="dy-content">
-          这是内容,这是内容,这是内容,这是内容,这是内容,这是内容,这是内容,这是内容,这是内容,这是内容.
+        {dynamic.content}
         </p>
       </div>
         {

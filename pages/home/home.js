@@ -1,35 +1,88 @@
-
-
+import React from 'react'
 import Layout from '../../components/MyLayout.js'
+import Dynamic from '../../components/Dynamic.js'
 import Link from 'next/link'
+import $ from 'jquery';
+import fetch from 'isomorphic-unfetch'
 
-import "../style.scss"
+import "./home.scss"
 
-function getPosts () {
-  return [
-    { id: 'hello-nextjs', title: 'Hello Next.js'},
-    { id: 'learn-nextjs', title: 'Learn Next.js is awesome'},
-    { id: 'deploy-nextjs', title: 'Deploy apps with ZEIT'},
-  ]
-}
+const PostLink = (props) => (
 
-const PostLink = ({ post }) => (
-  <li>
-    <Link as={`/p/${post.id}`} href={`/post?title=${post.title}`}>
-      <a>{post.title}</a>
+    <Link href={`/home/Edit?type=${props.type}`}>
+      <p className={props.className}>{props.type}</p>
     </Link>
 
-  </li>
 )
 
-export default () => (
-  <Layout>
-    <h1 className="example">bingyan-task</h1>
-    <ul>
-      {getPosts().map((post) => (
-        <PostLink key={post.id} post={post}/>
-      ))}
-    </ul>
+export default class extends React.Component {
+  // static async getInitialProps() {
+  //   const res = await fetch(`http://127.0.0.1:27017/bingyan-task/account`)
+  //   const show = await res.json()
+  //   return { show }
+  // }
+  constructor(props) {
+    super(props);
+    this.state = {
+      pen : 0
+    };
+  }
 
-  </Layout>
-)
+  togglePen() {
+    this.setState({
+      pen: !this.state.pen
+    })
+  }
+
+
+
+  componentDidMount() {
+    console.log('ready');
+    $.ajax({
+      type: 'get',
+      "url": `http://localhost:3000/home/getDynamicList`,
+      data: {}
+    }).then((result) => {
+      if(result.success){
+        console.log("yes");
+      }else{
+        alert(result.message);
+      }
+    })
+  }
+
+  render() {
+    const {pen} = this.state;
+    const dynamic = {
+      author: 'cs',
+      content: 'content',
+      title: 'title',
+    };
+    return (
+      <div className="main-page">
+        <Layout index="0">
+          <div className="pen-start" onClick={()=>this.togglePen()}>
+            <i className="iconfont icon-pen"></i>
+          </div>
+          <Dynamic type="other" dynamic={dynamic}/>
+        </Layout>
+        {
+          !!pen &&
+          <div className="modle-choose">
+            <div className="wrap">
+              <PostLink className="pic" id="pic" type="pic"/>
+              <PostLink className="gif" id="gif" type="gif"/>
+              <PostLink className="words" id="words" type="words"/>
+              <PostLink className="voice" id="voice" type="voice"/>
+            </div>
+            <i className="iconfont icon-close" onClick={()=>this.togglePen()}/>
+          
+          </div>
+        }
+          
+       </div>
+    )
+  }
+}
+const default_img = "/static/images/default-img.png";
+

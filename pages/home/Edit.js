@@ -1,5 +1,4 @@
 import React from 'react'
-import Head from 'next/head'
 
 import "./Edit.scss"
 import Link from 'next/link'
@@ -9,12 +8,8 @@ export default class extends React.Component {
   render() {
     return (
       <div className="Edit">
-        <Head>
-          <meta name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no"></meta>
-          <link rel="stylesheet" href="//at.alicdn.com/t/font_859389_j1n7ks6ymu.css"></link>
-        </Head>
         <header>
-          <Link href="/">
+          <Link href="/home/home">
             <span> &lt; </span>
           </Link>
           <span>new Post</span>
@@ -25,7 +20,7 @@ export default class extends React.Component {
         </div>
         <div class="edit-wrap">
           <input type="text" placeholder="title" className="title"></input>
-          <textarea placeholder="contents" className="contents"/>>
+          <textarea placeholder="contents" className="contents"/>
           <div className="tools">
             <i className="iconfont icon-gif"/>
             <i className="iconfont icon-photo"/>

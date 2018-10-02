@@ -1,0 +1,25 @@
+@import "../static/scss/common";
+
+.wrap {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -70%);
+}
+.text, .password {
+  height: 1rem;
+  width: 4rem;
+  border:solid 1px #ffffff;
+  border-bottom: solid 1px #717e8f;
+}
+.sign {
+  height: 1rem;
+  width: 4rem;
+  background-color:#717e8f;
+  color: #ffffff;
+  font-size: 0.4rem;
+  margin-top: 0.8rem;
+  border-radius: 0.5rem;
+  line-height: 1rem;
+  text-align: center;
+}

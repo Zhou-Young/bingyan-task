@@ -1,20 +1,13 @@
 import Link from 'next/link'
-import Head from 'next/head'
 
 import "./Header.scss"
-
 
 
 const Header = (props) => {
   const {index}=props;
   return (
-    <div class="Header">
-      <Head>
-        <meta name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no"></meta>
-        <link rel="stylesheet" href="//at.alicdn.com/t/font_859389_j1n7ks6ymu.css"></link>
-      </Head>
-
-      <Link href="/">
+    <div className="Header">
+      <Link href="/home/home">
         <i className={`iconfont icon-home ${index=="0"?"active":""}`}/>
       </Link>
       <Link href="/search/Search">
