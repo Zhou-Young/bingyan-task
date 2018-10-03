@@ -5,12 +5,18 @@
   height: 100vh;
   header {
     background-color: #5c5d5d;
-    height: 1rems;
+    height: 1rem;
     span{
       color: #ffffff;
       font-size: 0.3rem;
       vertical-align: 0.25rem;
       padding-left: 0.3rem;
+    }
+    .publish {
+      float: right;
+      color: #5e9dcb;
+      line-height: 1rem;
+      padding-right: 0.3rem;
     }
   }
   .usr-head {

@@ -1,15 +1,28 @@
 import React from 'react'
 import Layout from '../../components/MyLayout.js'
 import Dynamic from '../../components/Dynamic.js'
-
+import $ from 'jquery';
+import fetch from 'isomorphic-unfetch'
+import Router from 'next/router'
 
 import "./Mine.scss"
 
 export default class extends React.Component {
+  // static async getInitialProps({req}) {
+  //   const baseUrl = req ? `${req.protocol}://${req.get('Host')}` : '';
+  //   const res = await fetch(baseUrl+`/user/getUserInfo`)
+  //   const show = await res.json();
+  //   const user = show.data;
+  //   return { user }
+  // }
+
   constructor(props) {
     super(props);
     this.state = {
-      nav_index: 0
+      nav_index: 0,
+      user: {},
+      dynamicList: [],
+      setting: false,
     };
   }
 
@@ -23,29 +36,90 @@ export default class extends React.Component {
     this.setState({
       nav_index:index
     })
-    // this.state = index;
+    console.log(this.state.user)
+  }
+
+  setLog() {
+    this.setState({
+      setting: !this.state.setting
+    })
+    console.log("aha")
+  }
+
+  logOut() {
+    $.ajax({
+      type: 'GET',
+      "url": `/user/logout`,
+    }).then((result) => {
+      if(result.success){
+        Router.push('/');
+      }else{
+        alert(result.message);
+      }
+    })
   }
 
   componentDidMount() {
-    console.log('ready');
+    $.ajax({
+      type: 'GET',
+      "url": `/user/getUserInfo`,
+    }).then((result) => {
+      if(result.success){
+        const data = result.data;
+        this.setState({
+          user: {
+            name: data.name,
+            desc: data.desc,
+            userImg: data.userImg
+          }
+        })
+      }else{
+        alert(result.message);
+        if(result.data == 12321){
+          Router.push('/');
+        }
+      }
+    })
+    
+    $.ajax({
+      type: 'GET',
+      "url": `/home/getMyDynamicList`,
+    }).then((result) => {
+      if(result.success){
+        const data = result.data;
+        this.setState({
+          dynamicList: data
+        })
+      }else{
+        alert(result.message);
+      }
+    })
+
   }
+
+  
+
   render() {
-    const {nav_index}=this.state;
+    const {nav_index, user, dynamicList, setting}=this.state;
+    // const {user} = this.props;
+    console.log("user",dynamicList);
     return (
       <div className="Mine">
         <Layout index="3">
           <div className="head">
             <div className="head-top">
-              <span className="name">zhouY</span>
-              <i className="iconfont icon-set"/>
+              <span className="name">{user.name}</span>
+              <i className="iconfont icon-set" onClick={()=>this.setLog()}></i>
               <i className="iconfont icon-paint"/>
               <i className="iconfont icon-search"/>
+              {setting && <p className="logout" onClick={this.logOut}>log out</p>}
+              
             </div>
             <img src={default_img}/>
           </div>
           <div className="user-info">
-            <img src={default_img}/>
-            <h1>wtf???</h1>
+            <img src={user.userImg || default_img}/>
+            <h1>{user.desc}</h1>
           </div>
           <ul className="nav clearfix">
             <li className={`posts ${nav_index==0 ? "active" : ""}`} onClick={()=>this.changeNavIndex(0)}>posts</li>
@@ -59,11 +133,12 @@ export default class extends React.Component {
           </div>
           
             {
-              nav_index == 0 && <Dynamic type="me"/>
+              nav_index == 0 && 
+              dynamicList.map(v=>{return <Dynamic type="me" dynamic={v}/>})
             }
-            {
+            {/* {
               nav_index == 1 && <Dynamic/>
-            }
+            } */}
             {
               nav_index == 2 && <div className="follow-content">
                 <img src={default_img} alt="default image" className="dy-pic"></img>

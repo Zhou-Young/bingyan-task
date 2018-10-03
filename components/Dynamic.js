@@ -15,7 +15,7 @@ const Dynamic = (props) => {
     {
       type!="me" &&
       <header>
-        <img src={default_img} alt="default image" className="dy-pic"></img>
+        <img src={dynamic.userImg || default_img} alt="default image" className="dy-pic"></img>
         <span className="author">{dynamic.author}</span>
         <span className="follow">follow</span>
         <i onClick={deleteContent} className="iconfont icon-close"></i>

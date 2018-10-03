@@ -22,21 +22,25 @@ export default class extends React.Component {
   signIn() {
     const name = this.refs.name.value;
     const password = this.refs.password.value;
-    console.log(name,'',password);
-    $.ajax({
-      type: 'POST',
-      "url": `/user/signin`,
-      data: {
+    if (!name || !password) {
+      alert('please input name or password');
+    }else{
+      $.ajax({
+        type: 'POST',
+        "url": `/user/signin`,
+        data: {
           name: name,
           password: password
-      }
-    }).then((result) => {
-      if(result.success){
-        Router.push('/home/home');
-      }else{
-        alert(result.message);
-      }
-    })
+        }
+      }).then((result) => {
+        if(result.success){
+          Router.push('/home/home');
+        }else{
+          alert(result.message);
+        }
+      })
+    }
+    
 
   }
 

@@ -7,14 +7,13 @@ exports.signin =  function (req, res) {
     var _user = req.body;
     var name = _user.name
     var password = _user.password   
-    console.log(name);
     User.findOne({name: name}, function (err, user) {
-        console.log(user);
+        // console.log(user);
         if (err) {
             console.log(err)
         }
         if (!user) {
-            var newUser = new User({name: name,password: password, img: "../../static/images/default-user-pic.png", desc:"no desc"})
+            var newUser = new User({name: name,password: password, userImg: "../../static/images/default-user-pic.png", desc:"no desc"})
             newUser.save();
             req.session.user = _user;
             res.json({
@@ -24,7 +23,7 @@ exports.signin =  function (req, res) {
             })
         }else {
             if(user.password == password) {
-                req.session.user = _user;
+                req.session.user = user;
                 res.json({
                     success: true,
                     message: '登录成功',
@@ -40,6 +39,50 @@ exports.signin =  function (req, res) {
     })
 }
 
-exports.gstUserInfo =  function (req, res) {
+exports.getUserInfo =  function (req, res) {
+    const user = req.session.user;
+    // console.log(req.session);
+    // console.log(user);
+    if (!user) {
+        res.json({
+            success: false,
+            message:'请先登陆',
+            data: 12321,
+        })
+    }else{
+        const name = user.name;
+        User.findOne({name: name}, function (err, user) {
+            if (err) {
+                console.log(err)
+            }
+            if (!user) {
+                res.json({
+                    success: false,
+                    message:'找不到用户',
+                })
+            }else {
+                res.json({
+                    success: true,
+                    data: {name: user.name,
+                    userImg: user.userImg,
+                    desc: user.desc,
+                },
+                })
+            }
+        })
+    }
+
     
+}
+
+// logout
+exports.logout = function (req, res) {
+    delete req.session.user;
+    // res.location("/");
+    // res.statusCode = 301;
+    // res.redirect('/');
+    res.json({
+        success: true,
+        message:'logout',
+    })
 }

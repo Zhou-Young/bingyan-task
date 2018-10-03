@@ -16,11 +16,14 @@ const PostLink = (props) => (
 )
 
 export default class extends React.Component {
-  // static async getInitialProps() {
-  //   const res = await fetch(`http://127.0.0.1:27017/bingyan-task/account`)
-  //   const show = await res.json()
-  //   return { show }
-  // }
+  static async getInitialProps({req}) {
+    // const app = req.app;
+    const baseUrl = req ? `${req.protocol}://${req.get('Host')}` : '';
+    const res = await fetch(baseUrl+`/home/getDynamicList`)
+    const show = await res.json();
+    const dynamicList = show.data;
+    return { dynamicList }
+  }
   constructor(props) {
     super(props);
     this.state = {
@@ -38,33 +41,38 @@ export default class extends React.Component {
 
   componentDidMount() {
     console.log('ready');
-    $.ajax({
-      type: 'get',
-      "url": `/home/getDynamicList`,
-      data: {}
-    }).then((result) => {
-      if(result.success){
-        console.log("yes");
-      }else{
-        alert(result.message);
-      }
-    })
+    // $.ajax({
+    //   type: 'get',
+    //   "url": `/home/getDynamicList`,
+    //   data: {}
+    // }).then((result) => {
+    //   if(result.success){
+    //     console.log("yes");
+    //     this.dynamicList = result.data;
+    //   }else{
+    //     alert(result.message);
+    //   }
+    // })
   }
 
   render() {
     const {pen} = this.state;
-    const dynamic = {
-      author: 'cs',
-      content: 'content',
-      title: 'title',
-    };
+
+    const {dynamicList} = this.props;
     return (
       <div className="main-page">
         <Layout index="0">
           <div className="pen-start" onClick={()=>this.togglePen()}>
             <i className="iconfont icon-pen"></i>
           </div>
-          <Dynamic type="other" dynamic={dynamic}/>
+          {
+            dynamicList.map(v=>{
+              return <Dynamic type="other" dynamic={v}/>
+            })
+          }
+          
+
+          
         </Layout>
         {
           !!pen &&
@@ -84,5 +92,6 @@ export default class extends React.Component {
     )
   }
 }
+
 const default_img = "/static/images/default-img.png";
 
