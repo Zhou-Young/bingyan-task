@@ -40,7 +40,7 @@ export default class extends React.Component {
     console.log('ready');
     $.ajax({
       type: 'get',
-      "url": `http://localhost:3000/home/getDynamicList`,
+      "url": `/home/getDynamicList`,
       data: {}
     }).then((result) => {
       if(result.success){

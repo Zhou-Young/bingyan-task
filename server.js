@@ -5,14 +5,40 @@ const  bodyParser  = require('body-parser')
 const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev })
 const handle = app.getRequestHandler()
+var port = process.env.PORT || 3000;
 
-mongoose.connect('mongodb://localhost/bingyan-task', function(err) {
+// mongoose.connect('mongodb://localhost/bingyan-task', function(err) {
+//   if(err){
+//       console.log('连接失败');
+//   }else{
+//       console.log('连接成功');
+//   }
+// });
+
+// mongodb+srv://<授权的用户名>:<授权的用户密码>@<集群地址>/?connect=direct mongodb+srv://user1:<PASSWORD>@cluster0-brnen.mongodb.net/test?retryWrites=true
+mongoose.connect('mongodb+srv://userby:bingyantask@cluster0-brnen.mongodb.net/bingyan-task?retryWrites=true', function(err) {
   if(err){
       console.log('连接失败');
+      console.log(err);
   }else{
       console.log('连接成功');
   }
 });
+
+// var MongoClient = require('mongodb').MongoClient;
+
+// var uri = "mongodb+srv://user1:.zy19971010zy..@cluster0.mongodb.net/bingyan-task";
+// MongoClient.connect(uri, function(err, client) {
+//   if(err){
+//           console.log('连接失败');
+//           console.log(err);
+//       }else{
+//           console.log('连接成功');
+//       }
+//   //  const collection = client.db("bingyan");
+//    // perform actions on the collection object
+//   //  client.close();
+// });
 
 app.prepare()
 .then(() => {
@@ -58,7 +84,7 @@ app.prepare()
     return handle(req, res)
   })
 
-  server.listen(3000, (err) => {
+  server.listen(port, (err) => {
     if (err) throw err
     console.log('> Ready on http://localhost:3000')
   })

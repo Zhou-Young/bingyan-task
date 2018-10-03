@@ -16,15 +16,19 @@ exports.signin =  function (req, res) {
         if (!user) {
             var newUser = new User({name: name,password: password, img: "../../static/images/default-user-pic.png", desc:"no desc"})
             newUser.save();
+            req.session.user = _user;
             res.json({
                 success: true,
-                message:'自动为此用户注册'
+                message:'自动为此用户注册',
+                data: name,
             })
         }else {
             if(user.password == password) {
+                req.session.user = _user;
                 res.json({
                     success: true,
                     message: '登录成功',
+                    data: name,
                 })
             }else {
                 res.json({

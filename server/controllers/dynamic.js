@@ -6,8 +6,8 @@ var Dynamic = require('../models/dynamic');
 
 
 exports.getDynamicList =  function (req, res) {
-  // const newdy = new Dynamic({title: "name",content: "password", img: ["../../static/images/default-user-pic.png"]})
-  // newdy.save();
+  const newdy = new Dynamic({title: "name",content: "password", img: ["../../static/images/default-user-pic.png"], author: "zhouY"});
+  newdy.save();
   Dynamic.find(function(err,dynamic){
     if (err) {
       console.log(err);

@@ -25,7 +25,7 @@ export default class extends React.Component {
     console.log(name,'',password);
     $.ajax({
       type: 'POST',
-      "url": `http://localhost:3000/user/signin`,
+      "url": `/user/signin`,
       data: {
           name: name,
           password: password
@@ -37,6 +37,7 @@ export default class extends React.Component {
         alert(result.message);
       }
     })
+
   }
 
   render() {
