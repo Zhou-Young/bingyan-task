@@ -1,13 +1,14 @@
 const express = require('express')
 const next = require('next')
 const mongoose = require('mongoose');
-const  bodyParser  = require('body-parser')
+const  bodyParser  = require('body-parser');
 var cookieParser = require('cookie-parser');
 var expressSession = require('express-session');
 var mongoStore = require('connect-mongo')(expressSession);
-const dev = process.env.NODE_ENV !== 'production'
-const app = next({ dev })
-const handle = app.getRequestHandler()
+const dev = process.env.NODE_ENV !== 'production';
+const app = next({ dev });
+const http = require('http');
+const handle = app.getRequestHandler();
 const port = process.env.PORT || 3000;
 const dbUrl = "mongodb+srv://userby:bingyantask@cluster0-brnen.mongodb.net/bingyan-task?retryWrites=true && authSource = admins";
 // mongoose.connect('mongodb://localhost/bingyan-task', function(err) {
@@ -17,6 +18,14 @@ const dbUrl = "mongodb+srv://userby:bingyantask@cluster0-brnen.mongodb.net/bingy
 //       console.log('连接成功');
 //   }
 // });
+
+// var app1 = express();
+// var server1 = http.createServer(app1);
+// var io = require('socket.io').listen(server1);
+
+// const server = express()
+//   const server1 = require('http').Server(server)
+//   const io = require('socket.io')(server1)
 
 // mongodb+srv://<授权的用户名>:<授权的用户密码>@<集群地址>/?connect=direct mongodb+srv://user1:<PASSWORD>@cluster0-brnen.mongodb.net/test?retryWrites=true
 mongoose.connect(dbUrl, function(err) {
@@ -31,14 +40,52 @@ mongoose.connect(dbUrl, function(err) {
 // var MongoClient = require('mongodb').MongoClient;
 
 
+
+  // io.on('connection', socket => {
+  //   console.log('a user connected')
+  // })
+
+  // io.on('connect', function (socket) {
+  //   socket.emit('news', { hello: 'world' });
+  //   socket.on('my other event', function (data) {
+  //     console.log(data);
+  //   });
+  // });
+  
+
 app.prepare()
 .then(() => {
-  const server = express()
-  server.get('/p/:id', (req, res) => {
-    const actualPage = '/post'
-    const queryParams = { id: req.params.id }
-    app.render(req, res, actualPage, queryParams)
+  const server = express();
+
+  const server1 = require('http').Server(server)
+  const io = require('socket.io')(server1)
+  // const io = require('socket.io').listen(server);
+  // server.get('/chat/ChatPage', (req, res) => {
+  io.on('connection', socket => {
+    console.log('a user connected')
+    socket.on('disconnect', () => {
+      console.log('user disconnected')
+    })
+    socket.emit('news', { hello: 'world' });
+    socket.on('my other event', function (data) {
+      console.log(data);
+    });
   })
+
+  // server1.listen(port, () => {
+  //   console.log(`The server is running: http://localhost:${port}`)
+  // })
+  //   })
+  // server.get('/', (req, res) => {
+  //   res.sendFile(__dirname)
+  // })
+
+  // server.get('/p/:id', (req, res) => {
+  //   const actualPage = '/post'
+  //   const queryParams = { id: req.params.id }
+  //   app.render(req, res, actualPage, queryParams)
+  // })
+
 
   
   server.use(bodyParser.json());
@@ -90,9 +137,9 @@ app.prepare()
   })
 
 
-  server.listen(port, (err) => {
+  server1.listen(port, (err) => {
     if (err) throw err
-    console.log('> Ready on http://localhost:3000')
+    console.log(`> Ready on http://localhost:${port}`)
   })
 
 

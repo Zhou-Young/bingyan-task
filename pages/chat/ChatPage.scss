@@ -42,9 +42,15 @@
     }
     input {
       height: 1rem;
-      width: 100%;
+      width: calc(100vw - 1rem);
       vertical-align: top;
       padding-left: 0.3rem;
+    }
+    .send {
+      color: #85d1ff;
+      float: right;
+      line-height: 1rem;
+      padding-right: 0.3rem;
     }
   }
 

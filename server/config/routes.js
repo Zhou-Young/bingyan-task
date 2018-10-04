@@ -20,6 +20,7 @@ module.exports = function(server) {
   server.post('/user/signin', User.signin);
   server.get('/user/logout', User.logout);
   server.get('/user/getUserInfo', User.getUserInfo);
+  server.get('/user/getUserList', User.getUserList);
 
   //home
   server.get('/home/getDynamicList', Dynamic.getDynamicList);

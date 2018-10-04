@@ -3,8 +3,9 @@ import React from 'react'
 import "./Edit.scss"
 import Link from 'next/link'
 import Router from 'next/router'
-import fetch from 'isomorphic-unfetch'
-import $ from 'jquery';
+// import fetch from 'isomorphic-unfetch'
+// import $ from 'jquery';
+import axios from 'axios';
 
 export default class extends React.Component {
   constructor(props) {
@@ -19,9 +20,9 @@ export default class extends React.Component {
     const content = this.refs.content.value;
     console.log(title,content);
 ///home/publishDynamic
-    $.ajax({
-      type: 'POST',
-      "url": `/home/publishDynamic`,
+    axios({
+      method: 'POST',
+      url: `/home/publishDynamic`,
       data: {
         title: title,
         content: content,
@@ -38,7 +39,7 @@ export default class extends React.Component {
   }
 
   componentDidMount() {
-    $.ajax({
+    axios({
       type: 'GET',
       "url": `/user/getUserInfo`,
     }).then((result) => {

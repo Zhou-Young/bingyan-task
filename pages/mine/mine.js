@@ -1,8 +1,9 @@
 import React from 'react'
 import Layout from '../../components/MyLayout.js'
 import Dynamic from '../../components/Dynamic.js'
-import $ from 'jquery';
-import fetch from 'isomorphic-unfetch'
+// import $ from 'jquery';
+import axios from 'axios';
+// import fetch from 'isomorphic-unfetch'
 import Router from 'next/router'
 
 import "./Mine.scss"
@@ -36,36 +37,35 @@ export default class extends React.Component {
     this.setState({
       nav_index:index
     })
-    console.log(this.state.user)
   }
 
   setLog() {
     this.setState({
       setting: !this.state.setting
     })
-    console.log("aha")
   }
 
   logOut() {
-    $.ajax({
-      type: 'GET',
-      "url": `/user/logout`,
+    axios({
+      methos: 'GET',
+      url: `/user/logout`,
     }).then((result) => {
-      if(result.success){
+      if(result.data.success){
         Router.push('/');
       }else{
-        alert(result.message);
+        alert(result.data.message);
       }
     })
   }
 
   componentDidMount() {
-    $.ajax({
-      type: 'GET',
-      "url": `/user/getUserInfo`,
+    axios({
+      method: 'GET',
+      url: `/user/getUserInfo`,
     }).then((result) => {
-      if(result.success){
-        const data = result.data;
+      console.log(result);
+      if(result.data.success){
+        const data = result.data.data;
         this.setState({
           user: {
             name: data.name,
@@ -74,24 +74,24 @@ export default class extends React.Component {
           }
         })
       }else{
-        alert(result.message);
-        if(result.data == 12321){
+        alert(result.data.message);
+        if(result.data.data == 12321){
           Router.push('/');
         }
       }
     })
     
-    $.ajax({
-      type: 'GET',
-      "url": `/home/getMyDynamicList`,
+    axios({
+      method: 'GET',
+      url: `/home/getMyDynamicList`,
     }).then((result) => {
-      if(result.success){
-        const data = result.data;
+      if(result.data.success){
+        const data = result.data.data;
         this.setState({
           dynamicList: data
         })
       }else{
-        alert(result.message);
+        alert(result.data.message);
       }
     })
 
@@ -115,7 +115,7 @@ export default class extends React.Component {
               {setting && <p className="logout" onClick={this.logOut}>log out</p>}
               
             </div>
-            <img src={default_img}/>
+            <img src={default_bg}/>
           </div>
           <div className="user-info">
             <img src={user.userImg || default_img}/>
@@ -134,7 +134,7 @@ export default class extends React.Component {
           
             {
               nav_index == 0 && 
-              dynamicList.map(v=>{return <Dynamic type="me" dynamic={v}/>})
+              dynamicList.map((v, i)=>{return <Dynamic type="me" dynamic={v} index={i}/>})
             }
             {/* {
               nav_index == 1 && <Dynamic/>
@@ -159,3 +159,4 @@ export default class extends React.Component {
 }
 
 const default_img = "/static/images/default-img.png";
+const default_bg = "/static/images/default-bg.jpg";

@@ -71,7 +71,18 @@ exports.getUserInfo =  function (req, res) {
             }
         })
     }
+}
 
+exports.getUserList =  function (req, res) {
+    User.find(function(err,user){
+        if (err) {
+          console.log(err);
+        }
+        res.json({
+            success: true,
+            data: user
+        })
+      })
     
 }
 

@@ -14,6 +14,7 @@
   "license": "ISC",
   "dependencies": {
     "@zeit/next-sass": "^1.0.1",
+    "axios": "^0.18.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
     "connect-mongo": "^2.0.1",
@@ -28,6 +29,8 @@
     "node-sass": "^4.9.3",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
-    "react-markdown": "^3.6.0"
+    "react-markdown": "^3.6.0",
+    "socket.io": "^2.1.1",
+    "socket.io-client": "^2.1.1"
   }
 }

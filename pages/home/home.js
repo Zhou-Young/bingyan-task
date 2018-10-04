@@ -2,7 +2,6 @@ import React from 'react'
 import Layout from '../../components/MyLayout.js'
 import Dynamic from '../../components/Dynamic.js'
 import Link from 'next/link'
-import $ from 'jquery';
 import fetch from 'isomorphic-unfetch'
 
 import "./home.scss"
@@ -17,7 +16,6 @@ const PostLink = (props) => (
 
 export default class extends React.Component {
   static async getInitialProps({req}) {
-    // const app = req.app;
     const baseUrl = req ? `${req.protocol}://${req.get('Host')}` : '';
     const res = await fetch(baseUrl+`/home/getDynamicList`)
     const show = await res.json();
@@ -66,8 +64,8 @@ export default class extends React.Component {
             <i className="iconfont icon-pen"></i>
           </div>
           {
-            dynamicList.map(v=>{
-              return <Dynamic type="other" dynamic={v}/>
+            dynamicList.map((v, i)=>{
+              return <Dynamic type="other" dynamic={v} index={i}/>
             })
           }
           

@@ -6,7 +6,7 @@ var Dynamic = require('../models/dynamic');
 
 
 exports.getDynamicList =  function (req, res) {
-  Dynamic.find().sort("meta.createAt").exec(function(err,dynamic){
+  Dynamic.find().sort("-meta.createAt").exec(function(err,dynamic){
     if (err) {
       console.log(err);
     }
@@ -21,7 +21,7 @@ exports.getMyDynamicList =  function (req, res) {
   // const newdy = new Dynamic({title: "name",content: "password", img: "../../static/images/default-img.png", author: "zhouY", userImg: "../../static/images/default-user-pic.png"});
   // newdy.save();
   const _name = req.session.user.name;
-  console.log(_name,req.session.user);
+  // console.log(_name,req.session.user);
   //
   Dynamic.find({author: _name}, function(err,dynamic){
     if (err) {

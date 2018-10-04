@@ -1,7 +1,8 @@
 import React from 'react'
 import Router from 'next/router'
 import fetch from 'isomorphic-unfetch'
-import $ from 'jquery';
+import axios from 'axios';
+import io from 'socket.io-client'
 
 import "./index.scss"
 
@@ -25,23 +26,40 @@ export default class extends React.Component {
     if (!name || !password) {
       alert('please input name or password');
     }else{
-      $.ajax({
-        type: 'POST',
-        "url": `/user/signin`,
+      axios({
+        method: 'POST',
+        url: `/user/signin`,
         data: {
           name: name,
           password: password
         }
-      }).then((result) => {
-        if(result.success){
+      }).then(function (response) {
+        if(response.data.success) {
           Router.push('/home/home');
-        }else{
-          alert(result.message);
+        }else {
+          alert(response.data.message);
         }
+        
       })
+      .catch(function (error) {
+        alert(error.message);
+      });
+      
     }
     
 
+  }
+
+  componentDidMount() {
+    // // this.socket = io('/chat/ChatPage')
+    // this.socket = io();
+    // this.socket = io;
+    // // // this.socket.on('message', this.handleMessage)
+    // // // var socket = io.connect('/chat/ChatPage');
+    // this.socket.on('news', function (data) {
+    //   console.log(data);
+    //   socket.emit('my other event', { my: 'data' });
+    // });
   }
 
   render() {
