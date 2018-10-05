@@ -51,15 +51,7 @@ export default class extends React.Component {
   }
 
   componentDidMount() {
-    // // this.socket = io('/chat/ChatPage')
-    // this.socket = io();
-    // this.socket = io;
-    // // // this.socket.on('message', this.handleMessage)
-    // // // var socket = io.connect('/chat/ChatPage');
-    // this.socket.on('news', function (data) {
-    //   console.log(data);
-    //   socket.emit('my other event', { my: 'data' });
-    // });
+
   }
 
   render() {

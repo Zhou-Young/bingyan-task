@@ -4,16 +4,15 @@ var User = require('../models/user');
 // signin
 //若数据库中没有用户名，则添加用户，若有用户名则判断密码是否正确
 exports.signin =  function (req, res) {
-    var _user = req.body;
-    var name = _user.name
-    var password = _user.password   
+    const _user = req.body;
+    const name = _user.name
+    const password = _user.password   
     User.findOne({name: name}, function (err, user) {
-        // console.log(user);
         if (err) {
             console.log(err)
         }
         if (!user) {
-            var newUser = new User({name: name,password: password, userImg: "../../static/images/default-user-pic.png", desc:"no desc"})
+            const newUser = new User({name: name,password: password, userImg: "../../static/images/default-user-pic.png", desc:"no desc"})
             newUser.save();
             req.session.user = _user;
             res.json({
@@ -41,8 +40,6 @@ exports.signin =  function (req, res) {
 
 exports.getUserInfo =  function (req, res) {
     const user = req.session.user;
-    // console.log(req.session);
-    // console.log(user);
     if (!user) {
         res.json({
             success: false,
@@ -76,14 +73,13 @@ exports.getUserInfo =  function (req, res) {
 exports.getUserList =  function (req, res) {
     User.find(function(err,user){
         if (err) {
-          console.log(err);
+            console.log(err);
         }
         res.json({
             success: true,
             data: user
         })
-      })
-    
+    })
 }
 
 // logout

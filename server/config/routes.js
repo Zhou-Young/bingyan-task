@@ -1,5 +1,6 @@
 const User = require('../controllers/user');
 const Dynamic = require('../controllers/dynamic');
+const Chat = require('../controllers/chat');
 // const Index = require('../controllers/index')
 
 module.exports = function(server) {
@@ -26,6 +27,11 @@ module.exports = function(server) {
   server.get('/home/getDynamicList', Dynamic.getDynamicList);
   server.get('/home/getMyDynamicList', Dynamic.getMyDynamicList);
   server.post('/home/publishDynamic', Dynamic.publishDynamic);
+
+  //chat
+  server.get('/chat/getChatHistory', Chat.getChatHistory);
+  server.post('/chat/sendChat', Chat.sendChat);
+
   
   
 

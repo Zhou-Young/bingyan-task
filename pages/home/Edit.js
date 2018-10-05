@@ -1,11 +1,10 @@
 import React from 'react'
-
-import "./Edit.scss"
 import Link from 'next/link'
 import Router from 'next/router'
 // import fetch from 'isomorphic-unfetch'
-// import $ from 'jquery';
 import axios from 'axios';
+
+import "./Edit.scss"
 
 export default class extends React.Component {
   constructor(props) {
@@ -18,8 +17,6 @@ export default class extends React.Component {
   publish() {
     const title = this.refs.title.value;
     const content = this.refs.content.value;
-    console.log(title,content);
-///home/publishDynamic
     axios({
       method: 'POST',
       url: `/home/publishDynamic`,
@@ -29,11 +26,11 @@ export default class extends React.Component {
         name: this.state.user.name,
         userImg: this.state.user.userImg,
       }
-    }).then((result) => {
-      if(result.success){
+    }).then(({data}) => {
+      if(data.success){
         Router.push('/home/home');
       }else{
-        alert(result.message);
+        alert(data.message);
       }
     })
   }
@@ -42,24 +39,22 @@ export default class extends React.Component {
     axios({
       type: 'GET',
       "url": `/user/getUserInfo`,
-    }).then((result) => {
-      if(result.success){
-        const data = result.data;
+    }).then(({data}) => {
+      if(data.success){
         this.setState({
           user: {
-            name: data.name,
-            desc: data.desc,
-            userImg: data.userImg
+            name: data.data.name,
+            desc: data.data.desc,
+            userImg: data.data.userImg
           }
         })
       }else{
-        alert(result.message);
-        if(result.data == 12321){
+        alert(data.message);
+        if(data.data == 12321){
           Router.push('/');
         }
       }
     })
-
   }
 
   render() {
@@ -87,7 +82,6 @@ export default class extends React.Component {
           </div>
         </div>
       </div>
-      
     )
   }
 }

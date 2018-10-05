@@ -6,8 +6,14 @@ var UserSchema = new mongoose.Schema({
         type: String
     },
     password: String,
-    userImg: String,
-    desc: String,
+    userImg: {
+        type: String,
+        default: '../../static/images/default-user-pic.png'
+      },
+    desc: {
+        type: String,
+        default: 'no desc'
+      }
 })
 
 UserSchema.statics = {

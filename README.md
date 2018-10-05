@@ -56,3 +56,10 @@ https://bingyan-task-zgurisppse.now.sh
 程序员的夜生活之每天都在猝死的边缘徘徊  
 
 websocket客户端和服务器可以通信了
+
+##### 1005
+简易版聊天功能结束，直接默认显示所有用户了，时间有限没写选择用户啥的  
+做了个简单的搜索功能  
+优化了一下下午的bug。。  
+明天看看上传图片音视频之类的东西再优化一下现有东西  
+https://bingyan-task-ygngaqbwtu.now.sh

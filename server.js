@@ -11,21 +11,6 @@ const http = require('http');
 const handle = app.getRequestHandler();
 const port = process.env.PORT || 3000;
 const dbUrl = "mongodb+srv://userby:bingyantask@cluster0-brnen.mongodb.net/bingyan-task?retryWrites=true && authSource = admins";
-// mongoose.connect('mongodb://localhost/bingyan-task', function(err) {
-//   if(err){
-//       console.log('连接失败');
-//   }else{
-//       console.log('连接成功');
-//   }
-// });
-
-// var app1 = express();
-// var server1 = http.createServer(app1);
-// var io = require('socket.io').listen(server1);
-
-// const server = express()
-//   const server1 = require('http').Server(server)
-//   const io = require('socket.io')(server1)
 
 // mongodb+srv://<授权的用户名>:<授权的用户密码>@<集群地址>/?connect=direct mongodb+srv://user1:<PASSWORD>@cluster0-brnen.mongodb.net/test?retryWrites=true
 mongoose.connect(dbUrl, function(err) {
@@ -36,57 +21,24 @@ mongoose.connect(dbUrl, function(err) {
       console.log('连接成功');
   }
 });
-
 // var MongoClient = require('mongodb').MongoClient;
-
-
-
-  // io.on('connection', socket => {
-  //   console.log('a user connected')
-  // })
-
-  // io.on('connect', function (socket) {
-  //   socket.emit('news', { hello: 'world' });
-  //   socket.on('my other event', function (data) {
-  //     console.log(data);
-  //   });
-  // });
   
 
 app.prepare()
 .then(() => {
   const server = express();
-
   const server1 = require('http').Server(server)
   const io = require('socket.io')(server1)
-  // const io = require('socket.io').listen(server);
-  // server.get('/chat/ChatPage', (req, res) => {
   io.on('connection', socket => {
     console.log('a user connected')
     socket.on('disconnect', () => {
       console.log('user disconnected')
     })
-    socket.emit('news', { hello: 'world' });
-    socket.on('my other event', function (data) {
-      console.log(data);
+    const _socket = socket;
+    socket.on('client-chat', function (data) {
+      _socket.broadcast.emit(data.other, { data: data.data, other: data.me, me: data.other });
     });
   })
-
-  // server1.listen(port, () => {
-  //   console.log(`The server is running: http://localhost:${port}`)
-  // })
-  //   })
-  // server.get('/', (req, res) => {
-  //   res.sendFile(__dirname)
-  // })
-
-  // server.get('/p/:id', (req, res) => {
-  //   const actualPage = '/post'
-  //   const queryParams = { id: req.params.id }
-  //   app.render(req, res, actualPage, queryParams)
-  // })
-
-
   
   server.use(bodyParser.json());
   server.use(bodyParser.urlencoded({
@@ -107,35 +59,10 @@ app.prepare()
   server.disable('etag');
 
   require('./server/config/routes')(server);
-  //signin
-  // server.post('/usr/signin',(req, res)=>{
-  //   console.log(req.body);
-  //   res.json({
-  //       success: true,
-  //       message: '登录成功',
-  //       data: {}
-  //   })  
-  // })
-
-// server.get('/', (req, res) => {
-//   User.fetch(function(err,user){
-//     console.log(user);
-//     if(err){
-//         console.log(err)
-//      }
-//     res.render('index',{
-//       title:'imooc',
-//       user:user
-//     })
-// })
-// console.log("主页 GET 请求");
-// res.send('Hello World');
-// })
 
   server.get('*', (req, res) => {
     return handle(req, res)
   })
-
 
   server1.listen(port, (err) => {
     if (err) throw err

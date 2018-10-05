@@ -2,22 +2,24 @@
 
 .Search {
   background-color: #36465d;
-  height: 100vh;
+  margin-bottom: 1rem;
+  min-height: calc(100vh - 1rem);
   .search-box {
     background-color: #ffffff;
     margin: 3%;
     width: 94%;
     height: 0.8rem;
-    padding-left: 0.3rem;
+    padding: 0 0.3rem;
     border: solid 1px #ffffff;
     vertical-align: top;
   }
   .tags {
     width: 100vw;
     padding-left: 0.3rem;
-    overflow: scroll;
+    overflow-x: scroll;
+    overflow-y: hidden;
     color: #999999;
-    margin-top: 0.3rem;
+    margin: 0.3rem 0;
     .tags-wrap {
       white-space: nowrap;
       height: 1rem;

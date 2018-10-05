@@ -3,6 +3,7 @@
 .main-page {
   background-color: #efefef;
   margin-bottom: 1rem;
+  min-height: calc(100vh - 1rem);
   .pen-start {
     position: fixed;
     width: 1.06rem;

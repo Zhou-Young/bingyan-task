@@ -49,11 +49,11 @@ export default class extends React.Component {
     axios({
       methos: 'GET',
       url: `/user/logout`,
-    }).then((result) => {
-      if(result.data.success){
+    }).then(({data}) => {
+      if(data.success){
         Router.push('/');
       }else{
-        alert(result.data.message);
+        alert(data.message);
       }
     })
   }
@@ -62,20 +62,18 @@ export default class extends React.Component {
     axios({
       method: 'GET',
       url: `/user/getUserInfo`,
-    }).then((result) => {
-      console.log(result);
-      if(result.data.success){
-        const data = result.data.data;
+    }).then(({data}) => {
+      if(data.success){
         this.setState({
           user: {
-            name: data.name,
-            desc: data.desc,
-            userImg: data.userImg
+            name: data.data.name,
+            desc: data.data.desc,
+            userImg: data.data.userImg
           }
         })
       }else{
-        alert(result.data.message);
-        if(result.data.data == 12321){
+        alert(data.message);
+        if(data.data == 12321){
           Router.push('/');
         }
       }
@@ -84,25 +82,19 @@ export default class extends React.Component {
     axios({
       method: 'GET',
       url: `/home/getMyDynamicList`,
-    }).then((result) => {
-      if(result.data.success){
-        const data = result.data.data;
+    }).then(({data}) => {
+      if(data.success){
         this.setState({
-          dynamicList: data
+          dynamicList: data.data
         })
       }else{
-        alert(result.data.message);
+        alert(data.message);
       }
     })
-
   }
-
-  
 
   render() {
     const {nav_index, user, dynamicList, setting}=this.state;
-    // const {user} = this.props;
-    console.log("user",dynamicList);
     return (
       <div className="Mine">
         <Layout index="3">
@@ -134,7 +126,7 @@ export default class extends React.Component {
           
             {
               nav_index == 0 && 
-              dynamicList.map((v, i)=>{return <Dynamic type="me" dynamic={v} index={i}/>})
+              dynamicList && dynamicList.map((v, i)=>{return <Dynamic type="me" dynamic={v} index={i}/>})
             }
             {/* {
               nav_index == 1 && <Dynamic/>

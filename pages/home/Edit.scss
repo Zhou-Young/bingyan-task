@@ -48,7 +48,8 @@
       padding-left: 0.3rem;
       font-size: 0.5rem;
       font-weight: 500;
-      color: #444444
+      color: #444444;
+      border: solid 1px transparent;
     }
     .contents {
       height: calc(100vh - 3.5rem);
@@ -56,6 +57,7 @@
       vertical-align: top;
       padding: 0.3rem;
       color: #666666;
+      border: solid 1px transparent;
     }
     .tools {
       position: absolute;

@@ -38,19 +38,7 @@ export default class extends React.Component {
 
 
   componentDidMount() {
-    console.log('ready');
-    // $.ajax({
-    //   type: 'get',
-    //   "url": `/home/getDynamicList`,
-    //   data: {}
-    // }).then((result) => {
-    //   if(result.success){
-    //     console.log("yes");
-    //     this.dynamicList = result.data;
-    //   }else{
-    //     alert(result.message);
-    //   }
-    // })
+
   }
 
   render() {
@@ -64,7 +52,7 @@ export default class extends React.Component {
             <i className="iconfont icon-pen"></i>
           </div>
           {
-            dynamicList.map((v, i)=>{
+            dynamicList && dynamicList.map((v, i)=>{
               return <Dynamic type="other" dynamic={v} index={i}/>
             })
           }
