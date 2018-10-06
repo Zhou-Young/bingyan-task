@@ -75,14 +75,12 @@ export default class extends React.Component {
           me: this.user.name
         }
       }).then(({data})=>{
-        console.log(data);
         if(!!data.data) {
 
         }
         this.setState({
           chatMessage: data.data
         })
-        console.log(this.state.chatMessage);
       })
       this.socket = io();
        this.socket.on(this.user.name, (data)=> {

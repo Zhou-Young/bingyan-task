@@ -23,20 +23,19 @@ export default class extends React.Component {
       nav_index: 0,
       user: {},
       dynamicList: [],
+      dynamicList2: [],
+      followList: [],
       setting: false,
     };
-  }
-
-  
-
-  deleteContent() {
-
   }
 
   changeNavIndex(index) {
     this.setState({
       nav_index:index
     })
+    // if(index == 1) {
+
+    // }
   }
 
   setLog() {
@@ -47,11 +46,104 @@ export default class extends React.Component {
 
   logOut() {
     axios({
-      methos: 'GET',
+      method: 'GET',
       url: `/user/logout`,
     }).then(({data}) => {
       if(data.success){
         Router.push('/');
+      }else{
+        alert(data.message);
+      }
+    })
+  }
+
+  deleteDynamic(id) {
+    axios({
+      method: 'POST',
+      url: `/home/deleteDynamic`,
+      data: {
+        _id: id,
+      }
+    }).then(({data}) => {
+      if(data.success){
+        alert("delete success");
+        this.fetchData1();
+      }else{
+        alert(data.message);
+      }
+    })
+  }
+
+  fetchData1() {
+    axios({
+      method: 'GET',
+      url: `/home/getMyDynamicList`,
+    }).then(({data}) => {
+      if(data.success){
+        this.setState({
+          dynamicList: data.data
+        })
+      }else{
+        alert(data.message);
+      }
+    })
+  }
+  fetchData2() {
+    axios({
+      method: 'GET',
+      url: `/user/getLikes`,
+    }).then(({data}) => {
+      if(data.success){
+        this.setState({
+          dynamicList2: data.data
+        })
+      }else{
+        alert(data.message);
+      }
+    })
+  }
+  fetchData3() {
+    axios({
+      method: 'GET',
+      url: `/user/getFollows`,
+    }).then(({data}) => {
+      if(data.success){
+        this.setState({
+          followList: data.data
+        })
+      }else{
+        alert(data.message);
+      }
+    })
+  }
+
+  addFollows(author) {
+    axios({
+      method: 'POST',
+      url: `/user/addFollows`,
+      data: {
+        author: author
+      }
+    }).then(({data}) => {
+      if(data.success){
+        console.log('success');
+        this.fetchData3();
+      }else{
+        alert(data.message);
+      }
+    })
+  }
+  addLikes(id) {
+    axios({
+      method: 'POST',
+      url: `/user/addLikes`,
+      data: {
+        id: id
+      }
+    }).then(({data}) => {
+      if(data.success){
+        console.log('success');
+        this.fetchData2();
       }else{
         alert(data.message);
       }
@@ -78,23 +170,13 @@ export default class extends React.Component {
         }
       }
     })
-    
-    axios({
-      method: 'GET',
-      url: `/home/getMyDynamicList`,
-    }).then(({data}) => {
-      if(data.success){
-        this.setState({
-          dynamicList: data.data
-        })
-      }else{
-        alert(data.message);
-      }
-    })
+    this.fetchData1();
+    this.fetchData3();
+    this.fetchData2();
   }
 
   render() {
-    const {nav_index, user, dynamicList, setting}=this.state;
+    const {nav_index, user, dynamicList, dynamicList2, followList, setting}=this.state;
     return (
       <div className="Mine">
         <Layout index="3">
@@ -126,17 +208,19 @@ export default class extends React.Component {
           
             {
               nav_index == 0 && 
-              dynamicList && dynamicList.map((v, i)=>{return <Dynamic type="me" dynamic={v} index={i}/>})
+              dynamicList && dynamicList.map((v, i)=>{return <Dynamic type="me" deleteDynamic={(id)=>this.deleteDynamic(id)} dynamic={v} index={i}/>})
             }
-            {/* {
-              nav_index == 1 && <Dynamic/>
-            } */}
             {
-              nav_index == 2 && <div className="follow-content">
-                <img src={default_img} alt="default image" className="dy-pic"></img>
-                <span className="author">作者</span>
-                <i className="iconfont icon-close"></i>
+              nav_index == 1 && dynamicList2 && dynamicList2.map((v, i)=>{return <Dynamic deleteContent={(id)=>this.addLikes(id)} dynamic={v} index={i}/>})
+            }
+            {
+              nav_index == 2 && followList && followList.map((v)=>{
+                return <div className="follow-content">
+                <img src={v.userImg || default_img} alt="default image" className="dy-pic"></img>
+                <span className="author">{v.name}</span>
+                <i className="iconfont icon-close" onClick={()=>this.addFollows(v.name)}></i>
               </div>
+              })
             }
           
           </div>

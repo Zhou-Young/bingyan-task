@@ -11,10 +11,16 @@ export default class extends React.Component {
     super(props);
     this.state = {
       user: {},
+      noClick: false
     };
+    this.noClick = false;
   }
 
   publish() {
+    if(this.noClick){
+      return alert("Do not repeat clicks");
+    }
+    this.noClick = true;
     const title = this.refs.title.value;
     const content = this.refs.content.value;
     axios({

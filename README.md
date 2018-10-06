@@ -63,3 +63,15 @@ websocket客户端和服务器可以通信了
 优化了一下下午的bug。。  
 明天看看上传图片音视频之类的东西再优化一下现有东西  
 https://bingyan-task-ygngaqbwtu.now.sh
+
+##### 1006  
+发布动态防抖  
+聊天tab页写了一个loading提醒  
+关注点赞流程基本通了  
+本来不准备写关注点赞了，然后，为什么我要写呢  
+好久没玩数据库了，，数据库字段都是要用什么现加的，，感jio关系十分混乱，，为什么不一开始就设计好数据库呢  
+不知道是我数据库写的有问题还是服务器有问题，，接口确实有点慢T_T  
+图片音视频上传修改图片啥的看明天有没有时间些吧  
+https://bingyan-task-uedtgepfnp.now.sh  
+
+![](https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1538852398560&di=9ab4c76e45d535e8f6863311d81f5d4a&imgtype=0&src=http%3A%2F%2Fimg1.doubanio.com%2Fview%2Fgroup_topic%2Flarge%2Fpublic%2Fp116102478.jpg)

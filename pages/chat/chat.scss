@@ -2,6 +2,11 @@
 
 .Chat {
   margin-bottom: 1rem; 
+  .tips {
+    line-height: 2rem;
+    color: #999999;
+    text-align: center;
+  }
   .chat-start {
     position: fixed;
     width: 1.06rem;

@@ -13,7 +13,11 @@ var UserSchema = new mongoose.Schema({
     desc: {
         type: String,
         default: 'no desc'
-      }
+      },
+    likes: [],
+    follows: [],
+    fans: []
+
 })
 
 UserSchema.statics = {

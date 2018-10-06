@@ -7,6 +7,16 @@ var DynamicSchema = new mongoose.Schema({
   img: Array,
   author: String,
   userImg: String,
+  likes: Array,
+  follows: Array,
+  isLiked: {
+      type: Boolean,
+      default: false
+  },
+  isFollowed: {
+    type: Boolean,
+    default: false
+  },
   meta: {
     createAt: {
         type: Date,

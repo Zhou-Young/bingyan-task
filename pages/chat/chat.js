@@ -13,10 +13,14 @@ export default class extends React.Component {
     this.state = {
       user: {},
       userList: [],
+      loading: false,
     };
   }
 
   componentDidMount() {
+    this.setState({
+      loading: true
+    })
     axios({
       method: 'GET',
       url: `/user/getUserInfo`,
@@ -43,7 +47,8 @@ export default class extends React.Component {
     }).then(({data}) => {
       if(data.success){
         this.setState({
-          userList: data.data
+          userList: data.data,
+          loading: false
         })
       }else{
         alert(data.message);
@@ -53,7 +58,9 @@ export default class extends React.Component {
 
 
   render() {
-    const {userList, user}=this.state;
+    const {userList, user, loading}=this.state;
+    const load = <p className="tips">loading...</p>
+    const noUser = <p className="tips">no user ~</p>
     return (
       <div className="Chat">
         <Layout index="2">
@@ -66,7 +73,7 @@ export default class extends React.Component {
           </header>
           <div className="user-list">
           {
-            userList && userList.map(v => {
+            loading ? load:  userList ? userList.map(v => {
               return(
                 <Link href={`/chat/ChatPage?name=${v.name}&desc=${v.desc}&userImg=${v.userImg}`}>
                   <div className="chat-item">
@@ -79,7 +86,7 @@ export default class extends React.Component {
                 </Link>
               )
               
-            })
+            }) : noUser
           }
           </div>
        

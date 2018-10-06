@@ -3,6 +3,7 @@ import Layout from '../../components/MyLayout.js'
 import Dynamic from '../../components/Dynamic.js'
 import Link from 'next/link'
 import fetch from 'isomorphic-unfetch'
+import axios from 'axios';
 
 import "./home.scss"
 
@@ -15,17 +16,18 @@ const PostLink = (props) => (
 )
 
 export default class extends React.Component {
-  static async getInitialProps({req}) {
-    const baseUrl = req ? `${req.protocol}://${req.get('Host')}` : '';
-    const res = await fetch(baseUrl+`/home/getDynamicList`)
-    const show = await res.json();
-    const dynamicList = show.data;
-    return { dynamicList }
-  }
+  // static async getInitialProps({req}) {
+  //   const baseUrl = req ? `${req.protocol}://${req.get('Host')}` : '';
+  //   const res = await fetch(baseUrl+`/home/getDynamicList`)
+  //   const show = await res.json();
+  //   const dynamicList = show.data;
+  //   return { dynamicList }
+  // }
   constructor(props) {
     super(props);
     this.state = {
-      pen : 0
+      pen : 0,
+      dynamicList: []
     };
   }
 
@@ -35,16 +37,70 @@ export default class extends React.Component {
     })
   }
 
+  deleteContent(i) {
+    this.state.dynamicList.splice(i,1)
+    this.setState({
+      dynamicList: this.state.dynamicList
+    })
+  }
 
+  addFollows(author,i) {
+    this.state.dynamicList[i].isFollowed = !this.state.dynamicList[i].isFollowed;
+    this.setState({
+      dynamicList: this.state.dynamicList
+    })
+    axios({
+      method: 'POST',
+      url: `/user/addFollows`,
+      data: {
+        author: author
+      }
+    }).then(({data}) => {
+      if(data.success){
+        console.log('success')
+      }else{
+        alert(data.message);
+      }
+    })
+  }
+
+  addLikes(id,i) {
+    this.state.dynamicList[i].isLiked = !this.state.dynamicList[i].isLiked;
+    this.setState({
+      dynamicList: this.state.dynamicList
+    })
+    axios({
+      method: 'POST',
+      url: `/user/addLikes`,
+      data: {
+        id: id
+      }
+    }).then(({data}) => {
+      if(data.success){
+        console.log('success')
+      }else{
+        alert(data.message);
+      }
+    })
+  }
 
   componentDidMount() {
-
+    axios({
+      method: 'GET',
+      url: `/home/getDynamicList`,
+    }).then(({data}) => {
+      if(data.success){
+        this.setState({
+          dynamicList: data.data
+        })
+      }else{
+        alert(data.message);
+      }
+    })
   }
 
   render() {
-    const {pen} = this.state;
-
-    const {dynamicList} = this.props;
+    const {pen, dynamicList} = this.state;
     return (
       <div className="main-page">
         <Layout index="0">
@@ -53,12 +109,9 @@ export default class extends React.Component {
           </div>
           {
             dynamicList && dynamicList.map((v, i)=>{
-              return <Dynamic type="other" dynamic={v} index={i}/>
+              return <Dynamic type="other" dynamic={v} index={i} addFollows={(author)=>{this.addFollows(author, i)}} addLikes={(id)=>{this.addLikes(id,i)}} deleteContent={()=>this.deleteContent(i)}/>
             })
           }
-          
-
-          
         </Layout>
         {
           !!pen &&
@@ -70,10 +123,8 @@ export default class extends React.Component {
               <PostLink className="voice" id="voice" type="voice"/>
             </div>
             <i className="iconfont icon-close" onClick={()=>this.togglePen()}/>
-          
           </div>
         }
-          
        </div>
     )
   }

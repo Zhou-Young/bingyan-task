@@ -1,6 +1,7 @@
 // var mongoose = require('mongoose')
 // var User = mongoose.model('User')
 var User = require('../models/user');
+var Dynamic = require('../models/dynamic');
 // signin
 //若数据库中没有用户名，则添加用户，若有用户名则判断密码是否正确
 exports.signin =  function (req, res) {
@@ -48,7 +49,7 @@ exports.getUserInfo =  function (req, res) {
         })
     }else{
         const name = user.name;
-        User.findOne({name: name}, function (err, user) {
+        User.findOne({name: name},{password:0}, function (err, user) {
             if (err) {
                 console.log(err)
             }
@@ -60,10 +61,7 @@ exports.getUserInfo =  function (req, res) {
             }else {
                 res.json({
                     success: true,
-                    data: {name: user.name,
-                    userImg: user.userImg,
-                    desc: user.desc,
-                },
+                    data: user
                 })
             }
         })
@@ -93,3 +91,141 @@ exports.logout = function (req, res) {
         message:'logout',
     })
 }
+
+exports.addLikes =  function (req, res) {
+    var id = req.body.id;
+    const user = req.session.user;
+    User.find({name: user.name, likes:{$in: id}}).exec((err,doc)=>{
+        if(err) {
+            console.log(err);
+        }
+        if(doc.length > 0) {
+            User.update({name: user.name},{'$pull': {likes: id}},function(err,raw){
+                if(err) {
+                    console.log(err);
+                }else {
+                    Dynamic.update({_id: id},{'$pull': {likes: user.name}},function(err,raw){
+                        if(err) {
+                            console.log(err);
+                        }else {
+                            res.json({
+                                success: true,
+                            })
+                        }
+                    })
+                }
+            })
+        }else {
+            User.update({name: user.name},{'$push': {likes: id}},function(err,raw){
+                if(err) {
+                    console.log(err);
+                }else {
+                    Dynamic.update({_id: id},{'$push': {likes: user.name}},function(err,raw){
+                        if(err) {
+                            console.log(err);
+                        }else {
+                            res.json({
+                                success: true,
+                                data: raw,
+                            })
+                        }
+                    })
+                }
+            })
+        }
+    })
+    
+   
+  }
+
+  exports.addFollows =  function (req, res) {
+    var author = req.body.author;
+    const user = req.session.user;
+    if(author != user.name) {
+        User.find({name: user.name, follows:{$in: author}}).exec((err,doc)=>{
+            if(err) {
+                console.log(err);
+            }
+            if(doc.length > 0) {
+                User.update({name: user.name},{'$pull': {follows: author}},function(err,raw){
+                    if(err) {
+                        console.log(err);
+                    }else {
+                        User.update({name: author},{'$pull': {fans: user.name}},function(err,raw){
+                            if(err) {
+                                console.log(err);
+                            }else {
+                                Dynamic.update({author: author},{'$pull': {follows: user.name}},function(err,raw){
+                                    if(err) {
+                                        console.log(err);
+                                    }else {
+                                        res.json({
+                                            success: true,
+                                            data: raw,
+                                        })
+                                    }
+                                })
+                            }
+                        })
+                    }
+                })
+            }else{
+                User.update({name: user.name},{'$push': {follows: author}},function(err,raw){
+                    if(err) {
+                        console.log(err);
+                    }else {
+                        User.update({name: author},{'$push': {fans: user.name}},function(err,raw){
+                            if(err) {
+                                console.log(err);
+                            }else {
+                                Dynamic.update({author: author},{'$push': {follows: user.name}},function(err,raw){
+                                    if(err) {
+                                        console.log(err);
+                                    }else {
+                                        res.json({
+                                            success: true,
+                                            data: raw,
+                                        })
+                                    }
+                                })
+                            }
+                        })
+                    }
+                })
+            }
+        })
+    }
+    
+  }
+
+  
+
+  exports.getFollows =  function (req, res) {
+    const user = req.session.user;
+    User.find({fans: {$in: user.name}},function(err,doc){
+        if(err) {
+            console.log(err);
+        }else {
+            res.json({
+                success: true,
+                data: doc
+            })
+        }
+    })
+  }
+
+  exports.getLikes =  function (req, res) {
+    const user = req.session.user;
+    Dynamic.find({likes: {$in: user.name}}, (err,doc)=>{
+        if(err) {
+            console.log(err);
+        }else {
+            res.json({
+                success: true,
+                data: doc
+            })
+        }
+    })
+  }
+
+  
