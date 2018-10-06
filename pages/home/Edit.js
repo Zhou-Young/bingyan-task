@@ -34,7 +34,7 @@ export default class extends React.Component {
       }
     }).then(({data}) => {
       if(data.success){
-        Router.push('/home/home');
+        Router.push('/home/home','/home');
       }else{
         alert(data.message);
       }
@@ -68,7 +68,7 @@ export default class extends React.Component {
     return (
       <div className="Edit">
         <header>
-          <Link href="/home/home">
+          <Link as="/home" href="/home/home">
             <span> &lt; </span>
           </Link>
           <span>new Post</span>

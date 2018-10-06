@@ -16,28 +16,10 @@ var DynamicSchema = new mongoose.Schema({
   isFollowed: {
     type: Boolean,
     default: false
-  },
-  meta: {
-    createAt: {
-        type: Date,
-        default: Date.now()
-    },
-    updateAt: {
-        type: Date,
-        default: Date.now()
-    }
-}
-})
-
-DynamicSchema.pre('save', function(next) {
-  if (this.isNew) {
-      this.meta.createAt = this.meta.updateAt = Date.now();
   }
-  else {
-      this.meta.updateAt = Date.now();
-  }
-
-  next();
+}, {
+    timestamps: { createdAt: 'createTime', updatedAt: 'updateTime' }
 });
+
 
 module.exports = DynamicSchema;

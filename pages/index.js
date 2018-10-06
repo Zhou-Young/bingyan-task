@@ -35,7 +35,7 @@ export default class extends React.Component {
         }
       }).then(function (response) {
         if(response.data.success) {
-          Router.push('/home/home');
+          Router.push('/home/home','/home');
         }else {
           alert(response.data.message);
         }

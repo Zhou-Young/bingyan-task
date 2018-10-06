@@ -16,7 +16,7 @@ exports.getDynamicList =  function (req, res) {
     {title : {$regex : reg}},
     {desc : {$regex : reg}}
     ] 
-  }).sort("-meta.createAt").exec(function(err,dynamic){
+  }).sort("-updateTime").exec(function(err,dynamic){
     if (err) {
       console.log(err);
     }
@@ -34,29 +34,10 @@ exports.getDynamicList =  function (req, res) {
           }else {
             v.isFollowed = false;
           }
-          // User.find({name: _name, follows:{$in: v.author}}).exec((err,doc)=>{
-          //   console.log("doc",doc);
-          //   if(!!doc && doc.length>0) {
-              
-          //     v.isFollowed = true;
-          //     console.log('ahahah',v);
-          //   }
-          //   else {
-          //     v.isFollowed = false;
-          //   }
-          // })
-          // console.log('vvvv',v);
           return v;
         })
     })
-      
-      
     }
-    // res.json({
-    //     success: true,
-    //     data: dynamic1
-    // })
-
   })
 }
 
@@ -64,7 +45,7 @@ exports.getDynamicList =  function (req, res) {
 
 exports.getMyDynamicList =  function (req, res) {
   const _name = req.session.user.name;
-  Dynamic.find({author: _name}, function(err,dynamic){
+  Dynamic.find({author: _name}).sort("-updateTime").exec(function(err,dynamic){
     if (err) {
       console.log(err);
     }

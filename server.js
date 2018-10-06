@@ -57,6 +57,27 @@ app.prepare()
 
   }))
   server.disable('etag');
+  //从链接点进来之后的界面刷新就不存在了，所以需要把链接渲染到客户端上
+  server.get('/home', (req, res) => {
+    const actualPage = '/home/home'
+    const queryParams = {id: req.params.id}
+    app.render(req, res, actualPage, queryParams)
+  })
+  server.get('/chat', (req, res) => {
+    const actualPage = '/chat/Chat'
+    const queryParams = {id: req.params.id}
+    app.render(req, res, actualPage, queryParams)
+  })
+  server.get('/mine', (req, res) => {
+    const actualPage = '/mine/Mine'
+    const queryParams = {id: req.params.id}
+    app.render(req, res, actualPage, queryParams)
+  })
+  server.get('/search', (req, res) => {
+    const actualPage = '/search/Search'
+    const queryParams = {id: req.params.id}
+    app.render(req, res, actualPage, queryParams)
+  })
 
   require('./server/config/routes')(server);
 

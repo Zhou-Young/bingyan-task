@@ -105,7 +105,7 @@ export default class extends React.Component {
     return (
       <div className="ChatPage">
         <header>
-          <Link href={`/chat/Chat`}>
+          <Link as="/chat" href={`/chat/Chat`}>
             <span> &lt; </span>
           </Link>
           <span>{query.name}</span>
