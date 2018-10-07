@@ -76,7 +76,7 @@ export default class extends React.Component {
             loading ? load:  userList ? userList.map(v => {
               return(
                 <Link href={`/chat/ChatPage?name=${v.name}&desc=${v.desc}&userImg=${v.userImg}`}>
-                  <div className="chat-item">
+                  <div className="chat-item clearfix">
                     <img src={v.userImg || default_img}></img>
                     <div className="item-right">
                       <p className="name">{v.name}</p>

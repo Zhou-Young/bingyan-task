@@ -51,28 +51,31 @@
   }
   .user-list {
     margin: 2rem 0 1rem 0;
-  }
-  .chat-item {
-    padding: 0 0.3rem;
-    img {
-      width: 0.75rem;
-      height: 0.75rem;
-      border-radius: 3px;
-      float: left;
-      margin: 0.3rem 0;
-    }
-    .item-right {
-      margin-left: 1.05rem;
-      padding: 0.3rem 0;
-      border-bottom: solid 1px #efefef;
-      .name {
-        color: #444444;
-        line-height: 0.3rem;
+    width: 100%;
+    .chat-item {
+      padding: 0 0.3rem;
+      img {
+        width: 0.75rem;
+        height: 0.75rem;
+        border-radius: 3px;
+        float: left;
+        margin: 0.3rem 0.3rem 0.3rem 0;
       }
-      .disc {
-        color: #999999;
-        line-height: 0.45rem;
+      .item-right {
+        // margin-left: 1.05rem;
+        overflow: hidden;
+        padding: 0.3rem 0;
+        border-bottom: solid 1px #efefef;
+        .name {
+          color: #444444;
+          line-height: 0.3rem;
+        }
+        .disc {
+          color: #999999;
+          line-height: 0.45rem;
+        }
       }
     }
   }
+
 }

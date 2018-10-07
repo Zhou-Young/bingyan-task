@@ -52,7 +52,9 @@ class Dynamic extends Component {
       </header>
     }
       <div className="content">
-        <img className="dy-img" src={dynamic.img || default_img}></img>
+        {/* {
+          dynamic.img &&  <img className="dy-img" src={dynamic.img || default_img}></img>
+        } */}
         <h3 className="dy-title">{dynamic.title}</h3>
         <p className="dy-content">
         {dynamic.content}

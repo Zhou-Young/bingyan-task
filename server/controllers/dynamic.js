@@ -58,7 +58,7 @@ exports.getMyDynamicList =  function (req, res) {
 
 exports.publishDynamic =  function (req, res) {
   var _dynamic = req.body;
-  const newdy = new Dynamic({title: _dynamic.title,content: _dynamic.content, img: "", author: _dynamic.name, userImg: _dynamic.userImg});
+  const newdy = new Dynamic({title: _dynamic.title,content: _dynamic.content, author: _dynamic.name, userImg: _dynamic.userImg});
   newdy.save();
   res.json({
     success: true,
