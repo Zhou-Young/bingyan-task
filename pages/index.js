@@ -1,10 +1,10 @@
-import React from 'react'
-import Router from 'next/router'
-import fetch from 'isomorphic-unfetch'
+import React from 'react';
+import Router from 'next/router';
+// import fetch from 'isomorphic-unfetch';
 import axios from 'axios';
-import io from 'socket.io-client'
+// import io from 'socket.io-client';
 
-import "./index.scss"
+import './index.scss';
 
 export default class extends React.Component {
   //   static async getInitialProps() {
@@ -14,55 +14,56 @@ export default class extends React.Component {
   // }
   constructor(props) {
     super(props);
+    this.signName = React.createRef();
+    this.signPsw = React.createRef();
   }
 
-  userValid() {
-    
-  }
+  componentDidMount() {}
 
   signIn() {
-    const name = this.refs.name.value;
-    const password = this.refs.password.value;
-    if (!name || !password) {
+    const signName = this.signName.current.value;
+    const signPsw = this.signPsw.current.value;
+    if (!signName || !signPsw) {
       alert('please input name or password');
-    }else{
+    } else {
       axios({
         method: 'POST',
-        url: `/user/signin`,
+        url: '/user/signin',
         data: {
-          name: name,
-          password: password
+          name: signName,
+          password: signPsw
         }
-      }).then(function (response) {
-        if(response.data.success) {
-          Router.push('/home/home','/home');
-        }else {
-          alert(response.data.message);
-        }
-        
       })
-      .catch(function (error) {
-        alert(error.message);
-      });
-      
+        .then(response => {
+          if (response.data.success) {
+            Router.push('/home/home', '/home');
+          } else {
+            alert(response.data.message);
+          }
+        })
+        .catch(error => {
+          alert(error.message);
+        });
     }
-    
-
-  }
-
-  componentDidMount() {
-
   }
 
   render() {
-    return(
+    return (
       <div>
         <div className="wrap">
-          <input type="text" className="text" placeholder="name" name="text" ref="name"></input>
-          <input type="password" className="password" placeholder="password" name="password" ref="password"/>
-          <div className="sign" onClick={()=>this.signIn()}>Sign in</div>
+          <input type="text" className="text" placeholder="name" name="text" ref={this.signName} />
+          <input
+            type="password"
+            className="password"
+            placeholder="password"
+            name="password"
+            ref={this.signPsw}
+          />
+          <div className="sign" onClick={() => this.signIn()}>
+            Sign in
+          </div>
         </div>
       </div>
-    )
+    );
   }
 }

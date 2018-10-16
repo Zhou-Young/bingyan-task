@@ -3,38 +3,47 @@
 .ChatPage {
   position: relative;
   height: 100vh;
+
   header {
     background-color: #5c5d5d;
     height: 1rem;
     position: fixed;
     top: 0;
     width: 100%;
-    span{
+
+    span {
       color: #ffffff;
       font-size: 0.3rem;
       vertical-align: 0.25rem;
       padding-left: 0.3rem;
     }
   }
+
   .usr-head {
     text-align: center;
+
     img {
       width: 0.68rem;
       height: 0.68rem;
       border-radius: 0.03rem;
       display: inline-block;
     }
+
     p {
       font-size: 0.24rem;
     }
   }
+
   .chat-center {
     margin: 1rem 0 2rem 0;
   }
+
   .chat-wrap {
     padding: 0.3rem;
+
     .chat-item {
       margin-bottom: 0.3rem;
+
       .item-img {
         width: 0.68rem;
         height: 0.68rem;
@@ -43,41 +52,48 @@
         // margin-left: 0.3rem;
         // float: left;
       }
+
       .chat-box {
         background-color: #eeeeee;
         border-radius: 0.2rem;
         display: table;
         padding: 0.2rem;
         margin: 0 1rem;
+
         .item-name {
           margin-bottom: 0.1rem;
           font-size: 0.3rem;
           color: #444444;
         }
+
         .item-content {
           color: #666666;
           line-height: 0.35rem;
         }
       }
-      
+
     }
   }
+
   .bottom-input {
     position: fixed;
     bottom: 0;
     width: 100%;
     background-color: #ffffff;
+
     .tools {
       color: #85d1ff;
       border-bottom: solid 1px #eeeeee;
       border-top: solid 1px #eeeeee;
       line-height: 1rem;
+
       .iconfont {
         padding: 0 0.3rem;
         font-size: 0.5rem;
         font-weight: 600;
       }
     }
+
     input {
       height: 1rem;
       width: calc(100vw - 1rem);
@@ -85,6 +101,7 @@
       padding-left: 0.3rem;
       border: solid 1px transparent;
     }
+
     .send {
       color: #85d1ff;
       float: right;

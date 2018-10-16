@@ -1,20 +1,23 @@
 @import "../static/scss/common";
+
 .Header {
-    position: fixed;
-    height: 1rem;
-    bottom: 0;
-    width: 100%;
-    background-color: #36465d;
-    i {
-        display: inline-block;
-        width: 25%;
-        text-align: center;
-        float: left;
-        line-height: 1rem;
-        font-size: .5rem;
-        color: #717e8f;
-        &.active {
-            color: #ffffff;
-        }
+  position: fixed;
+  height: 1rem;
+  bottom: 0;
+  width: 100%;
+  background-color: #36465d;
+
+  i {
+    display: inline-block;
+    width: 25%;
+    text-align: center;
+    float: left;
+    line-height: 1rem;
+    font-size: .5rem;
+    color: #717e8f;
+
+    &.active {
+      color: #ffffff;
     }
+  }
 }

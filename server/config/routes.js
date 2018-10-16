@@ -3,16 +3,13 @@ const Dynamic = require('../controllers/dynamic');
 const Chat = require('../controllers/chat');
 // const Index = require('../controllers/index')
 
-module.exports = function(server) {
-
+module.exports = server => {
   // pre handle user
-  server.use(function(req, res, next) {
-    var _user = req.session
-
-    server.locals.user = _user
-
-    next()
-  })
+  server.use((req, res, next) => {
+    const _user = req.session;
+    server.locals.user = _user;
+    next();
+  });
 
   // Index
   // server.get('/', Index.index)
@@ -29,19 +26,14 @@ module.exports = function(server) {
   server.get('/user/getUserInfo', User.getUserInfo);
   server.get('/user/getUserList', User.getUserList);
 
-  //home
+  // home
   server.get('/home/getDynamicList', Dynamic.getDynamicList);
   server.get('/home/getMyDynamicList', Dynamic.getMyDynamicList);
-  server.post('/home/publishDynamic', Dynamic.publishDynamic); 
+  server.post('/home/publishDynamic', Dynamic.publishDynamic);
 
   server.post('/home/deleteDynamic', Dynamic.deleteDynamic);
 
-  //chat
+  // chat
   server.get('/chat/getChatHistory', Chat.getChatHistory);
   server.post('/chat/sendChat', Chat.sendChat);
-
-  
-  
-
-
-}
+};

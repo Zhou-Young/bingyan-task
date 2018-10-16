@@ -1,31 +1,25 @@
-var Chat = require('../models/chat');
+const Chat = require('../models/chat');
 
-exports.getChatHistory =  function (req, res) {
-  const me = req.query.me;
-  const other = req.query.other;
-  Chat.find({me: {$in:[me, other]}, other: {$in:[me, other]}},(err, chat)=>{
+exports.getChatHistory = (req, res) => {
+  const { me, other } = req.query;
+  Chat.find({ me: { $in: [me, other] }, other: { $in: [me, other] } }, (err, chat) => {
     if (err) {
       console.log(err);
-    }else {
+    } else {
       res.json({
         success: true,
-        data: chat.sort((a,b)=>{
-          return a.createAt - b.createAt;
-        })
-      })
+        data: chat.sort((a, b) => a.createAt - b.createAt)
+      });
     }
-  })
-}
+  });
+};
 
-exports.sendChat =  function (req, res) {
-  const message = req.body.message;
-  const other = req.body.other;
-  const me = req.body.me;
-  const newChat = new Chat({message: message, me: me, other: other});
+exports.sendChat = (req, res) => {
+  const { message, other, me } = req.body;
+  const newChat = new Chat({ message, me, other });
   newChat.save();
   res.json({
     success: true,
     message: '发送成功'
-  })
-}
-
+  });
+};

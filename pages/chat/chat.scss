@@ -1,12 +1,14 @@
 @import "../../static/scss/common";
 
 .Chat {
-  margin-bottom: 1rem; 
+  margin-bottom: 1rem;
+
   .tips {
     line-height: 2rem;
     color: #999999;
     text-align: center;
   }
+
   .chat-start {
     position: fixed;
     width: 1.06rem;
@@ -16,22 +18,24 @@
     bottom: 2rem;
     right: 0.3rem;
     box-shadow: 2px 2px 5px #cccccc;
+
     .icon-add {
       position: absolute;
       top: 50%;
       left: 50%;
-      transform: translate(-50%,-50%);
+      transform: translate(-50%, -50%);
       text-align: center;
       color: #ffffff;
       font-size: .55rem;
     }
   }
-  
+
   header {
     position: fixed;
     width: 100%;
     top: 0;
     background-color: #ffffff;
+
     p:last-child {
       height: 1rem;
       line-height: 1rem;
@@ -40,6 +44,7 @@
       border-bottom: solid 1px #59a0cd;
       color: #59a0cd;
     }
+
     p:first-child {
       color: #444444;
       font-size: 0.3rem;
@@ -49,11 +54,14 @@
       padding-left: 0.3rem;
     }
   }
+
   .user-list {
     margin: 2rem 0 1rem 0;
     width: 100%;
+
     .chat-item {
       padding: 0 0.3rem;
+
       img {
         width: 0.75rem;
         height: 0.75rem;
@@ -61,15 +69,18 @@
         float: left;
         margin: 0.3rem 0.3rem 0.3rem 0;
       }
+
       .item-right {
         // margin-left: 1.05rem;
         overflow: hidden;
         padding: 0.3rem 0;
         border-bottom: solid 1px #efefef;
+
         .name {
           color: #444444;
           line-height: 0.3rem;
         }
+
         .disc {
           color: #999999;
           line-height: 0.45rem;
