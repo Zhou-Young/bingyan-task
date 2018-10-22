@@ -62,9 +62,11 @@ export default class extends React.Component {
     return (
       <div className="Chat">
         <Layout index="2">
-          <div className="chat-start" onClick={this.newPen}>
-            <i className="iconfont icon-add" />
-          </div>
+          <Link href="/chat/ChatList">
+            <div className="chat-start" onClick={this.newPen}>
+              <i className="iconfont icon-add" />
+            </div>
+          </Link>
           <header>
             <p>{user.name}</p>
             <p>chat</p>
